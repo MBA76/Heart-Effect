@@ -81,7 +81,7 @@ for (i = 0; i < heartPointsCount; i++) {
     e[i] = {
         vx: 0,
         vy: 0,
-        R: 2,
+        R: mobile ? 3 : 5,
         speed: rand() + 5,
         q: ~~(rand() * heartPointsCount),
         D: 2 * (i % 2) - 1,
