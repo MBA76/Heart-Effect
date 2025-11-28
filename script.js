@@ -142,10 +142,36 @@ var loop = function () {
             ctx.fillRect(u.trace[k].x, u.trace[k].y, 1, 1);
         }
     }
-    //ctx.fillStyle = "rgba(255,255,255,1)";
-    //for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
+        //ctx.fillStyle = "rgba(255,255,255,1)";
+        //for (i = u.trace.length; i--;) ctx.fillRect(targetPoints[i][0], targetPoints[i][1], 2, 2);
 
-    window.requestAnimationFrame(loop, canvas);
+        // Draw centered animated text "Zeynep" in white palette
+        ctx.save();
+        var txt = "Zeynep";
+        var pulseScale = 1 + 0.07 * Math.sin(time * 3);
+        var baseFont = Math.min(width, height) / (mobile ? 7 : 8);
+        var fontSize = Math.round(baseFont * pulseScale);
+        var fontFamily = "'Helvetica Neue', Arial, sans-serif";
+        ctx.font = "700 " + fontSize + "px " + fontFamily;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        // soft white glow
+        ctx.shadowColor = "rgba(255,255,255,0.9)";
+        ctx.shadowBlur = 30;
+        var gx = width / 2, gy = height / 2;
+        // white gradient (subtle)
+        var g = ctx.createLinearGradient(gx, gy - fontSize, gx, gy + fontSize);
+        g.addColorStop(0, "rgba(255,255,255,1)");
+        g.addColorStop(1, "rgba(245,245,245,1)");
+        ctx.fillStyle = g;
+        ctx.fillText(txt, gx, gy);
+        // subtle stroke for definition
+        ctx.lineWidth = Math.max(2, fontSize / 22);
+        ctx.strokeStyle = "rgba(230,230,230,0.25)";
+        ctx.strokeText(txt, gx, gy);
+        ctx.restore();
+
+        window.requestAnimationFrame(loop, canvas);
 };
 loop();
 };
